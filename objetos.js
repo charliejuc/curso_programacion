@@ -15,3 +15,9 @@ console.log(a['name'])
 console.log(a.x)
 
 console.log(a.x - b.x)
+
+const name = 'Ejika2'
+
+console.log({
+	name
+})

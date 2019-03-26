@@ -8,16 +8,6 @@ console.log(a)
 console.log(b)
 
 console.log('Key 2:', b[2])
-
-// for ( let k in b ) {
-// 	console.log('K:', k)
-// 	console.log('E:', b[k])
-// }
-
-// for ( let e of b ) {
-// 	console.log('E:', e)
-// }
-
 // Array.length
 
 console.log('b Length:', b.length)

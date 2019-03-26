@@ -11,3 +11,12 @@ while (i) {
 	console.log('I:', i)
 	i--
 }
+
+// for ( let k in b ) {
+// 	console.log('K:', k)
+// 	console.log('E:', b[k])
+// }
+
+// for ( let e of b ) {
+// 	console.log('E:', e)
+// }
