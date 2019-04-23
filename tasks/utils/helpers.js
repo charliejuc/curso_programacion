@@ -20,7 +20,7 @@ function randomPokemon () {
 	return pokemon
 }
 
-function critic_chance(percentage, multiplier){
+function chance(percentage, multiplier){
 	// Los porcentajes van entre 0 y 100 siendo estos números enteros. Si se quisiese añadir el 0 habría que cambiar el 1
 	// inicial de random_value por 0, pero sería 1 número más en la probabilidad, puesto que el 0 cuenta.
 	if(random_value(1,100,1) <= percentage){
@@ -30,55 +30,71 @@ function critic_chance(percentage, multiplier){
 	}
 }
 
-function battle (pokemon1, pokemon2, empates_posibles){
+function reverseBi (bi) {
+	if ( ! bi ) {
+		return 1
+	}
+
+	return 0
+}
+
+function battleContinue (pokemons) {
+	for ( let pokemon of pokemons ) {
+		if ( pokemon.hp <= 0 ) {
+			return false
+		}
+	}
+
+	return true
+}
+
+function empate(pokemons){
+	
+	let counter = 0
+
+	for (let pokemon of pokemons){
+		if (pokemon.hp <= 0) counter++  
+	}
+
+	return counter === pokemons.length	
+}
+
+function battle (pokemon1, pokemon2){
 	
 	// Guardar una copia de los pokemons inciales por si hay empate poder reiniciarlos
 	let copy_pokemon1 = Object.assign({}, pokemon1)
 	let copy_pokemon2 = Object.assign({}, pokemon2)
+	let pokemons = [copy_pokemon1,copy_pokemon2]
+	let bi = 0
 
-	while (pokemon1.hp > 0 && pokemon2.hp > 0) {	
+	while ( battleContinue(pokemons) ) {
+		let rbi = reverseBi(bi)
 
-		let final_damage
+		let at = pokemons[bi]
+		let df = pokemons[rbi]
+		let criticmultiplier = chance(30,1.7)
+		let self_damage_chance = chance(30,0.5)
+		let self_damage = parseInt(at.damage * self_damage_chance)
+		let final_damage = parseInt(at.damage * criticmultiplier)
 
-	// **FÓRMULA MATEMÁTICA**	
-		final_damage = parseInt(pokemon2.damage * critic_chance(30,1.7))
-		pokemon1.hp = pokemon1.hp - final_damage
-		
-	// **DESCRIPCIÓN TEXTUAL**
-		console.log(pokemon2.name, "infligió", final_damage, "puntos de daño a", pokemon1.name)
-		if (final_damage !== pokemon2.damage){console.log('¡Fue un golpe crítico!')}
-		console.log('A', pokemon1.name, 'le quedan', pokemon1.hp ,'puntos de vida')
-
-	// **FÓRMULA MATEMÁTICA**	
-		final_damage = parseInt(pokemon1.damage * critic_chance(30,1.7))
-		pokemon2.hp = pokemon2.hp - final_damage
+		df.hp -= final_damage 
+		at.hp -= self_damage_chance === 1 ? 0 : self_damage
 
 	// **DESCRIPCIÓN TEXTUAL**
-		console.log(pokemon1.name, "infligió", final_damage, "puntos de daño a", pokemon2.name)
-		if (final_damage !== pokemon1.damage){console.log('¡Fue un golpe crítico!')}
-		console.log('A', pokemon2.name, 'le quedan', pokemon2.hp ,'puntos de vida')  
+		console.log(`${at.name} infligió ${final_damage} puntos de daño a ${df.name}`)
+		if (criticmultiplier !== 1) console.log('¡Fue un golpe crítico!')
+		console.log(`A ${df.name} le quedan ${df.hp} puntos de vida`)
+		if (self_damage_chance !== 1) console.log(`${at.name} se hirió a sí mismo ${self_damage}`)
 
-	// En caso de empate reiniciar
-		//**Si tenemos que hacer Object.assign para crear otro lugar donde referenciarlo, por qué en esta seccion al igualar
-		//**pokemon1 a copy_pokemon1 no estamos modificando el original (copy_pokemon1) al modificar pokemon1, como sí
-		//**ocurría a la inversa
-		if (empates_posibles > 0){
-			if (pokemon1.hp <= 0 && pokemon2.hp <= 0){
-			pokemon1 = copy_pokemon1
-			pokemon2 = copy_pokemon2
-			empates_posibles--
-			console.log('*******************REPITEN COMBATE*******************')
-			console.log(pokemon1)
-			console.log(pokemon2)
-			battle (pokemon1, pokemon2, empates_posibles)
-			}
-		} else {
-			console.log('Estos dos no se ponen de acuerdo, así que saltamos al siguiente combate.')
-		}
-// ¡¡¡¡¡BUG!!!!: Cuando repiten no continuan con la secuencia de guardar los datos del ganador en pokemon.js
+
+		console.log('ATTACKER', at)
+		console.log('DEFENSOR', df)
+
+		bi = rbi
 	}
 
-	return 
+	if (empate(pokemons)) console.log('************Hubo empate') 
+	return pokemons
 }
 
 module.exports = {

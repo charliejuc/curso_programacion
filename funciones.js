@@ -50,12 +50,56 @@ function factorial (n, mult) {
 	console.log('RETURN FUNCTION')
 }
 
-let f = factorial(5)
+// let f = factorial(5)
 
-console.log(f)
+// console.log(f)
 
 // function f() {
 // 	return 1
 // }
 
 // f() => f() => f() => f()
+
+// function () {
+
+// }
+
+// let a = (c) => {
+// 	console.log('Soy una arrow function', c)
+// }
+
+// a('Heyyy!')
+
+// function a () {
+// 	console.log(this, arguments)
+// }
+
+// const b = () => {
+// 	console.log(this)
+// }
+
+// // a()
+// // b(1,2,3,4,5,6)
+
+// const c = a.bind({
+// 	'v': 37
+// }, ...[1,2,3,4])
+
+// c()
+
+function a (a, b) {
+	if ( ! this || ( ! this.force && ! this.active ) ) {
+		return null
+	}
+
+	return a + b
+}
+{ active: active, force: false }
+const active = true
+const b = a.bind({ active: active, force: false })
+
+// console.log(a(1,5))
+// console.log(b(1,5))
+
+console.log( a(1,5) ? 'Activo' : 'No activo' )
+console.log( b(1,5) ? 'Activo' : 'No activo' )
