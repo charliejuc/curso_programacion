@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Título</title>
+</head>
+<body>
+
+	<!-- En caso de estar los inputs vacíos pintarlos de rojo y en caso de tener algún valor pintarlos de verde al hacer click en el botón -->
+	<!-- Botón que introduzca en un input un saludo como valor y ese saludo sea diferente en cada click -->
+	<!-- Botón que ejecute el combate pokemon en el navegador al hacer click -->
+
+	
+	<input class="inputo" type="text" placeholder="Escribe tu nombre">
+	<input class="inputo" type="password">
+	<input class="inputo" type="number">
+	<button id="boton" style="width: 100px; height: 50px; cursor: pointer;">Botón</button>
+
+	<script>
+		const btn = document.getElementById('boton')
+
+		// btn.style.backgroundColor = 'red'
+		// btn.style.backgroundColor = 'green'
+
+		// console.log(btn)
+
+		const onClick = () => {
+			for ( let inputo of inputos ) {
+				console.log(inputo.value)
+			}
+		}
+		
+		btn.addEventListener('click', onClick)
+
+		const inputos = document.getElementsByClassName('inputo')
+
+		console.log(inputos)
+
+		const onKeyDown = function () {
+			console.log(this)
+			console.log(this.value)
+		}
+
+		for ( let inputo of inputos ) {
+			inputo.addEventListener('keydown', onKeyDown)
+		}
+
+	</script>
+
+	<script type="text/javascript" src="./index.js"></script>
+
+</body>
+</html>
