@@ -1,0 +1,57 @@
+body {
+	/*font-family: "Courier New", Courier, monospace;*/
+	padding: 20px;
+}
+
+/*input {
+	background-color: #ff00ff;
+	background-color: lightblue;
+}
+*/
+/*.inputo {
+	background-color: red;
+}
+
+#boton {
+	color: orange;
+}
+
+div.container .inputo {
+	background-color: yellow;
+}*/
+
+/*a {
+
+}
+
+ul {
+	list-style: none;
+}*/
+
+.login-form {
+	width: 200px;
+	background-color: lightblue;
+
+	padding: 20px;
+	/*margin: 20px;*/
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+
+}
+
+.login-form input {
+	margin-bottom: 15px;
+	box-shadow: 1px 1px 3px black,
+				1px -1px 3px black,
+				-1px 1px 3px black;
+}
+
+.login-form #boton {
+	/*margin-top: 15px;*/
+	width: 70%;
+	background-color: lightblue;
+	border: 1px solid #33ccff;
+}
